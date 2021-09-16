@@ -7,7 +7,7 @@
                     <button class="btn btn-success float-end" routerLink="/crear-producto">
                         NUEVO
                     </button>
-                    <table class="table table-striped mt-4">
+                    <table *ngIf="listProductos.length > 0" class="table table-striped mt-4">
                         <thead>
                           <tr>
                             <th scope="col">Producto</th>
@@ -18,19 +18,20 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                          <tr *ngFor="let item of listProductos">
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.categoria }}</td>
+                            <td>{{ item.ubicacion}}</td>
+                            <td>{{ item.precio | currency: 'USD'}}</td>
                             <td>
-                                <i class="fas fa-edit text-primary"></i>
-                                <i class="fas fa-trash text-danger"></i>
+                                <i [routerLink]="['/editar-producto',item._id]" class="fas fa-edit text-primary"></i>
+                                <i (click)="deleteProducto(item._id)" class="fas fa-trash text-danger"></i>
                             </td>
                           </tr>
 
                         </tbody>
                       </table>
+                      <h5 *ngIf="listProductos.length == 0">No hay Productos</h5>
                 </div>
             </div>
         </div>
